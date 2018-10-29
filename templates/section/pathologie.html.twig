@@ -1,0 +1,24 @@
+<section id="pathologies" class="section one-page-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Pathologies prises en charge</h2>
+        </div>
+
+        <div class="row filtr-container">
+
+            {% for pathologie in information.pathologies %}
+                <div class="col-sm-6 col-md-4 filtr-item design web">
+                    <h3>{{ pathologie.nom }}</h3>
+                    <div class="single-work mb-30">
+                        <a href="{{ vich_uploader_asset(pathologie, 'photo') }}" class="popup-link">
+                            <img class="effect" src="{{ vich_uploader_asset(pathologie, 'photo') }}" alt="">
+                            <div class="work-overlay effect">
+                                <p>{{ pathologie.description|raw }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div><!-- end row -->
+    </div> <!-- End Container -->
+</section>

@@ -1,0 +1,28 @@
+<header class="nav-wrapper effect">
+    <noscript>
+        <p class="noscript">Pour utiliser cette page, vous devez activer les scripts Javascript.</p>
+    </noscript>
+
+    <nav class="navbar-custom">
+        <div class="container">
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bm-navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#home" class="scroll effect active" data-speed="800">ACCUEIL</a></li>
+                    <li><a href="#about" class="scroll effect" data-speed="1000">À PROPOS</a></li>
+                    <li><a href="#prestations" class="scroll effect" data-speed="1400">PRESTATIONS</a></li>
+                    <li><a href="#pathologies" class="scroll effect" data-speed="1400">PATHOLOGIES</a></li>
+                    <li><a href="#contact" class="scroll effect" data-speed="1700">CONTACT</a></li>
+                    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+
+                        <li><a class="nav-link smooth-scroll" href="{{ path('information') }}">ADMINISTRATION</a></li>
+
+                    {% endif %}
+                </ul>
+            </div><!-- End navbar-collapse -->
+
+        </div><!-- End container -->
+    </nav>
+
+</header>

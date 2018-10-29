@@ -1,0 +1,17 @@
+<div class="btn-group">
+    {% if right_view == true %}
+    <a class="btn btn-sm btn-info" href="{{ path(route_show, { 'id': entity.id }) }}" title="Aperçu">
+        <i class="fa fa-eye"></i>
+    </a>
+    {% endif %}
+    {% if right_update == true %}
+        <a class="btn btn-sm btn-warning" href="{{ path(route_edit, { 'id': entity.id }) }}" title="Modifier">
+            <i class="fa fa-pencil"></i>
+        </a>
+    {% endif %}
+    {% if use_copy == true %}
+    <a class="btn btn-sm btn-warning" href="{{ path(route_new, { 'id': entity.id }) }}" title="Recopier et nouveau">
+        <i class="fa fa-copy"></i>
+    </a>
+    {% endif %}
+</div>

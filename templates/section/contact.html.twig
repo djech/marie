@@ -1,0 +1,79 @@
+<section id="contact" class="section one-page-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Me contacter</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-10 col-md-offset-1">
+
+                {% if information.telephone is not null %}
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="contact-item mb-30">
+                            <div class="c-icon text-center">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="c-text">
+                                <h5>TELEPHONE</h5>
+                                <h6>{{ information.telephone }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if information.adresse is not null %}
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="contact-item mb-30">
+                            <div class="c-icon text-center">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <div class="c-text">
+                                <h5>ADRESSE</h5>
+                                <h6>{{ information.adresse }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {#{% if information.email is not null %}#}
+                    {#<div class="col-xs-12 col-sm-4">#}
+                        {#<div class="contact-item mb-30">#}
+                            {#<div class="c-icon text-center">#}
+                                {#<i class="fa fa-envelope"></i>#}
+                            {#</div>#}
+                            {#<div class="c-text">#}
+                                {#<h5>EMAIL</h5>#}
+                                {#<h6>{{ information.email }}</h6>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#{% endif %}#}
+
+
+            </div>
+        </div><!-- end row -->
+
+        <div class="row">
+            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                {{ form_start(form, { 'action': path('home') }) }}
+
+                    <div class="col-sm-6">
+                        {{ form_widget(form.name) }}
+                        <span class="name-error text-center mb-30">{{ form_errors(form.name) }}</span>
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.email) }}
+                        <span class="email-error text-center mb-30">{{ form_errors(form.email) }}</span>
+                    </div>
+                    <div class="col-xs-12">
+                        {{ form_widget(form.message) }}
+                        <span class="message-error text-center mb-30">{{ form_errors(form.message) }}</span>
+                    </div>
+
+                    <button type="submit" class="effect submit-btn">Envoyer Message</button>
+
+                {{ form_end(form) }}
+            </div>
+        </div> <!-- end row -->
+    </div> <!-- End Container -->
+</section>

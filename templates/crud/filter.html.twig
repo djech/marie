@@ -1,0 +1,37 @@
+{% macro apply(value, filter) %}
+    {% if filter == 'date' %}
+        {{ value | date('d/m/Y') }}
+    {% elseif filter == 'datetime' %}
+        {{ value | date('d/m/Y H:i:s') }}
+    {% elseif filter == 'mailto' %}
+        {{ ('<a href="mailto:' ~ value ~ '">' ~ value ~ '</a>') | raw }}
+    {% else %}
+        {{ value }}
+    {% endif %}
+{% endmacro %}
+
+{% import _self as filters %}
+
+{% if type == 'DateType' and value is not null %}
+
+    {{ filters.apply(value, 'date') }}
+
+{% elseif type == 'DateTimeType' and value is not null %}
+
+    {{ filters.apply(value, 'datetime') }}
+
+{% elseif type == 'ChoiceType' %}
+
+    {% for key, choice in choices if choice == value %}
+        {{ key }}
+    {% endfor %}
+
+{% elseif type == 'CollectionType' or multiple == true or value is iterable %}
+
+    {{ value | join(join_separator) | raw }}
+
+{% else %}
+
+    {{ filters.apply(value, filter) }}
+
+{% endif %}

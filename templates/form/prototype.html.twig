@@ -1,0 +1,39 @@
+{% use 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block _information_prestations_prestations_entry_label %}{% endblock %}
+{% block _information_prestations_prestations_entry_row %}
+    {{ block('embed_form') }}
+{% endblock %}
+
+{% block _information_pathologies_pathologies_entry_label %}{% endblock %}
+{% block _information_pathologies_pathologies_entry_row %}
+    {{ block('embed_form') }}
+{% endblock %}
+
+{% block embed_form %}
+    {% spaceless %}
+        <div class="box box-primary box-solid collapsed-box">
+            <div class="box-header">
+                <div class="box-header-name"></div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+                    {{- form_label(form) -}}
+                    <div class="{{ block('embed_form_group_class') }}">
+                        {{- form_widget(form) -}}
+                        {{- form_errors(form) -}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock embed_form %}
+
+{% block embed_form_group_class -%}
+    col-sm-12
+{%- endblock embed_form_group_class %}

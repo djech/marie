@@ -1,0 +1,18 @@
+fos_ck_editor:
+    configs:
+        my_config:
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []
+            toolbar: "my_toolbar_1"
+    toolbars:
+        configs:
+            my_toolbar_1: [ "@clipboard", "@basicstyles" , "@paragraph", "@links", "@insert", "/", "@styles","@colors", "@tools" ]
+        items:
+            clipboard: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]
+            basicstyles:     [ 'Bold', 'Underline', 'Italic', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ]
+            paragraph:     [ 'NumberedList', 'BulletedList', '-', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-' ]
+            links:     [ 'Link', 'Unlink' ]
+            insert:     ['Html5video', 'Html5audio', 'Image', 'Table', 'HorizontalRule','SpecialChar' ]
+            styles:     [ 'Format', 'FontSize' ]
+            colors:     [ 'TextColor', 'BGColor' ]
+            tools:     [ 'Maximize', 'ShowBlocks' ]

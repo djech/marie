@@ -1,0 +1,70 @@
+{% extends "base.html.twig" %}
+
+{% block head_content %}
+    {{ parent() }}
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta http-equiv="Content-Language" content="fr-FR"/>
+    <meta name="Keywords" content="Marie, Bieber, strasbourg, kinesitherapeute, kine, mundolsheim"/>
+    <meta name="Description" content="Marie Bieber"/>
+    <meta name="rating" content="General"/>
+    <meta name="expires" content="never"/>
+    <meta name="language" content="fr-FR"/>
+    <meta name="distribution" content="Global"/>
+    <meta name="robots" content="INDEX,FOLLOW"/>
+    <meta name="revisit-after" content="15 jours"/>
+    <meta name="Revisit-After" content="15 days"/>
+    <meta name="Title" content="Marie Bieber" xml:lang="fr-FR"/>
+
+    {% block icon %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico')}}" type="image/x-icon"/>
+    {% endblock %}
+
+    {% block stylesheets %}
+
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i" rel="stylesheet">
+
+    {% endblock %}
+
+{% endblock %}
+
+{% block body_content %}
+
+    {% block body %}
+
+        <div class="loader-con">
+            <div class="spinner center">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+
+        {% include 'header.html.twig' %}
+
+        {% block contenu %}{% endblock %}
+
+        {% include 'footer.html.twig' %}
+
+    {% endblock %}
+
+    {% block body_bottom %}
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+            <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.typer.js') }}"></script>
+            <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
+            <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
+            <script src="{{ asset('js/particle.js') }}"></script>
+            <script src="{{ asset('js/main.js') }}"></script>
+        {% endblock %}
+    {% endblock %}
+
+
+{% endblock %}

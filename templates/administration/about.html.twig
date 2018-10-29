@@ -1,0 +1,22 @@
+{% extends 'administration/layout.html.twig' %}
+
+{% if form is defined %}
+    {% form_theme form '@AdminLTE/layout/form-theme.html.twig' %}
+{% endif %}
+
+{% block page_title %}À propos{% endblock %}
+
+{% block page_subtitle %}Ici il faudrait que tu parles très vite fait de toi et que tu dises là où tu travailles en ce moment{% endblock %}
+
+{% block page_content %}
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button class="btn btn-sm btn-primary center-block" type="submit">
+        <i class="fa fa-save"></i>&nbsp;Enregistrer</button>
+
+    {{ form_end(form) }}
+
+{% endblock %}

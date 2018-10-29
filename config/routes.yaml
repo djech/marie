@@ -1,0 +1,9 @@
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+elfinder:
+    resource: "@FMElfinderBundle/Resources/config/routing.yml"
+
+app_extra:
+    resource: .
+    type: extra

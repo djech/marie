@@ -1,0 +1,27 @@
+{% extends "crud/form.html.twig" %}
+
+{% block content_header_small %}
+    Modifier
+{% endblock %}
+
+{% if entity.__tostring is defined and entity.__tostring | trim is not empty %}
+    {% set delete_text = 'Voulez-vous vraiment supprimer \\"' ~ entity | escape ~ '\\" ?' %}
+{% else %}
+    {% set delete_text = 'Voulez-vous vraiment supprimer ?' %}
+{% endif %}
+
+{% if add_delete_texte is not empty %}
+    {% set delete_text = delete_text ~ '<br />' ~ add_delete_texte %}
+{% endif %}
+
+{% block buttons %}
+    {{ parent() }}
+    {% if right_delete == true %}
+        <div class="btn-group">
+            {{ form_start(delete_form) }}
+            <button class="btn btn-sm btn-danger" type="submit" onclick='return confirm("{{delete_text}}", function(){ $("form[name=\"form\"]").submit(); });'>
+                <i class="fa fa-trash"></i>&nbsp;Supprimer</button>
+            {{ form_end(delete_form) }}
+        </div>
+    {% endif %}
+{% endblock %}

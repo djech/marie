@@ -1,0 +1,68 @@
+{% extends parent_twig %}
+
+{% block content_header %}
+    {{ title }}
+    <small>Aperçu</small>
+{% endblock %}
+
+{% if entity.__tostring is defined and entity.__tostring | trim is not empty %}
+    {% set delete_text = 'Voulez-vous vraiment supprimer \\"' ~ entity | escape ~ '\\" ?' %}
+{% else %}
+    {% set delete_text = 'Voulez-vous vraiment supprimer ?' %}
+{% endif %}
+
+{% if add_delete_texte is not empty %}
+    {% set delete_text = delete_text ~ '<br />' ~ add_delete_texte %}
+{% endif %}
+
+{% block content %}
+    <div class="btn-group">
+        <a class="btn btn-sm btn-info" href="javascript:history.back()">
+            <i class="fa fa-reply"></i>&nbsp;Retour</a>
+        {% if right_create == true and referer == false %}
+            <a class="btn btn-sm btn-success" href="{{ path(route_new) }}">
+                <i class="fa fa-plus"></i>&nbsp;Créer</a>
+        {% endif %}
+        {% if right_update == true %}
+            <a class="btn btn-sm btn-warning" href="{{ path(route_edit, { 'id': entity.id}) }}">
+                <i class="fa fa-pencil"></i>&nbsp;Modifier</a>
+        {% endif %}
+    </div>
+    {% if right_delete == true %}
+        <div class="btn-group">
+            {{ form_start(delete_form) }}
+            <button class="btn btn-sm btn-danger" type="submit" onclick='return confirm("{{delete_text}}", function(){ $("form[name=\"form\"]").submit(); });'>
+                <i class="fa fa-trash"></i>&nbsp;Supprimer</button>
+            {{ form_end(delete_form) }}
+        </div>
+    {% endif %}
+    <p></p>
+
+    {% embed "crud/box.html.twig" with {'box_class': 'box-primary'}%}
+        {% block boxcontent %}
+            <table class="table table-hover table-condensed">
+                <tbody>
+                    {# La vue show se base sur la liste des champs du formulaire #}
+                    {% for key, field_options in form_options %}
+                        {% if field_options['mapped'] is not empty %}
+                            <tr>
+                                <th>{{ field_options['label'] }}</th>
+
+                                {# Appliquer différents filtres #}
+                                {% set vars = {
+                                    'type': field_options['type'],
+                                    'multiple': field_options['multiple'],
+                                    'choices': field_options['choices'],
+                                    'filter': null,
+                                    'value': attribute(entity, key),
+                                    'join_separator': join_separator
+                                } %}
+                                <td>{% include 'crud/filter.html.twig' with vars only %}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% use 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block embed_form %}
+    {% spaceless %}
+        <div class="box box-primary box-solid collapsed-box">
+            <div class="box-header">
+                <div class="box-header-name"></div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+                    {{- form_label(form) -}}
+                    <div class="{{ block('embed_form_group_class') }}">
+                        {{- form_widget(form) -}}
+                        {{- form_errors(form) -}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock embed_form %}
+
+{% block embed_form_group_class -%}
+    col-sm-12
+{%- endblock embed_form_group_class %}
+
+{%- block choice_widget_options -%}
+    {% for group_label, choice in options %}
+        {%- if choice is iterable -%}
+            <optgroup label="{{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}">
+                {% set options = choice %}
+                {{- block('choice_widget_options') -}}
+            </optgroup>
+        {%- else -%}
+            <option value="{{ choice.value }}"{% if choice.attr %} {% set attr = choice.attr %}{{ block('attributes') }}{% endif %}{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{- block('choice_option_label') -}}</option>
+        {%- endif -%}
+    {% endfor %}
+{%- endblock choice_widget_options -%}
+
+{%- block choice_option_label -%}
+
+    {%- if raw_label|default(false) -%}
+        {{ choice_translation_domain is same as(false) ? choice.label|raw : choice.label|trans({}, choice_translation_domain)|raw }}
+    {%- else -%}
+        {{ choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain) }}
+    {%- endif -%}
+{%- endblock -%}

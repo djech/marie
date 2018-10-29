@@ -1,0 +1,14 @@
+nbproject/*
+.idea
+vendor
+composer.lock
+package-lock.json
+
+# Ignore Eclipse IDE config files
+.buildpath
+.project
+.settings
+
+# Ignore cache files from php cs fixer
+.php_cs.cache
+node_modules

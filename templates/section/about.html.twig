@@ -1,0 +1,37 @@
+<section id="about" class="section one-page-section">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-12 col-md-6">
+                <div class="about-content">
+
+                    {{ information.about.content|raw }}
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul>
+                                {#{% if information.email is not null %}#}
+                                    {#<li><span><i class="fa fa-envelope"></i> Email : </span>{{ information.email }}</li>#}
+                                {#{% endif %}#}
+                                {% if information.adresse is not null %}
+                                    <li><span><i class="fa fa-map-marker"></i> Adresse : </span>{{ information.adresse }}</li>
+                                {% endif %}
+                                {% if information.telephone is not null %}
+                                    <li><span><i class="fa fa-phone"></i> Téléphone : </span>{{ information.telephone }}</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-6 skills-section">
+
+                <img src="{{ asset('images/vue_travail.png') }}">
+
+            </div>
+
+        </div> <!-- End Row -->
+    </div> <!-- End Container -->
+</section>

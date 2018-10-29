@@ -1,0 +1,42 @@
+{% extends parent_twig %}
+
+{% set use_datatable = true %}
+
+{% block content_header %}
+    {{ title }}
+    <small>Vue d'ensemble</small>
+{% endblock %}
+
+{% block content %}
+    {% embed "crud/box.html.twig" with {'box_class': 'box-primary'}%}
+        {% block boxheader %}
+            {% if right_create == true %}
+                <a class="btn btn-sm btn-success" href="{{ path(route_new) }}">
+                    <i class="fa fa-plus"></i>&nbsp;Créer</a>
+            {% endif %}
+        {% endblock %}
+        {% block boxcontent %}
+            <table class="table table-hover table-bordered table-striped datatable">
+                <thead>
+                    <tr>
+                        {% if displayActions == true %}
+                            <th>Actions</th>
+                        {% endif %}
+
+                        {% for field in fields %}
+                            {% if (field['label'] is not null) %}
+                                {% set label = field['label'] %}
+                            {% elseif (form_options[field['name']]['label'] is not null) %}
+                                {% set label = form_options[field['name']]['label'] %}
+                            {% else %}
+                                {% set label = '' %}
+                            {% endif %}
+                            <th>{{ label }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends '@AdminLTE/layout/default-layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/font-awesome/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('datepicker/datepicker3.css') }}">
+    {% if use_datatable is defined and use_datatable == true %}
+        <link href="{{ asset('datatables/dataTables.bootstrap.css') }}" rel="stylesheet"/>
+    {% endif %}
+
+{% endblock %}
+
+{% block logo_path %}{{ path('information'|route_alias) }}{% endblock %}
+
+{% block logo_mini %}<b>M</b>Bbr{% endblock %}
+
+{% block logo_large %} <b>Marie</b>Bieber {% endblock %}
+
+{% block page_title %}{% if title is defined %}{{ title }}{% endif %}{% endblock %}
+
+{% block page_subtitle %}{% endblock %}
+
+{% block page_content %}
+
+    {{ parent() }}
+    {% block content %}
+
+    {% endblock %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/collection.js') }}"></script>
+    <script src="{{ asset('datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('datepicker/locales/bootstrap-datepicker.fr.js') }}"></script>
+    <script src="{{ asset('js/datepicker.js') }}"></script>
+
+    {% if use_datatable is defined and use_datatable == true %}
+        <script src="{{ asset('datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('datatables/dataTables.bootstrap.min.js') }}"></script>
+        <script src="https://cdn.datatables.net/plug-ins/1.10.13/sorting/date-euro.js"></script>
+        <script>
+            var datatable = (function() {
+                var param = {
+                    "scrollX": true,
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "oLanguage": {
+                        "sProcessing": "Traitement en cours...",
+                        "sSearch": "Rechercher&nbsp;:",
+                        "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                        "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                        "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                        "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                        "sInfoPostFix": "",
+                        "sLoadingRecords": "Chargement en cours...",
+                        "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                        "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                        "oPaginate": {
+                            "sFirst": "Premier",
+                            "sPrevious": "Pr&eacute;c&eacute;dent",
+                            "sNext": "Suivant",
+                            "sLast": "Dernier"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                            "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                        }
+                    },
+                    "order": [], // No ordering applied by DataTables during initialisation
+                    "stateSave": true,
+                    "lengthMenu": [ 5, 10, 25, 50, 75, 100 ]
+                };
+
+                {% if datatable_page_length is defined %}
+                param["pageLength"] = {{ datatable_page_length }};
+                {% else %}
+                param["pageLength"] = 25;
+                {% endif %}
+
+                {% if column_def is defined %}
+                param["columnDefs"] = {{ column_def|json_encode|raw }};
+                {% endif %}
+
+                {% if ajax_source is defined %}
+                param["sAjaxSource"] = "{{ path(ajax_source) }}";
+                {% endif %}
+
+                table = $('.datatable').DataTable(param);
+
+                return {
+                    param: param,
+                    table: table
+                };
+
+            })();
+        </script>
+    {% endif %}
+
+{% endblock %}

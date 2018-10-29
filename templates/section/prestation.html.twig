@@ -1,0 +1,28 @@
+<section id="prestations" class="section one-page-section second-bg">
+    <div class="container">
+        <div class="section-title">
+            <h2>Mes prestations</h2>
+        </div>
+
+        <div class="row">
+
+            {% for prestation in information.prestations %}
+
+                <div class="col-xs-12 col-md-4">
+                    <div class="single-service">
+                        <div class="service-icon">
+                            <img class="effect" src="{{ vich_uploader_asset(prestation, 'photo') }}" alt="">
+                        </div>
+                        <div class="service-content">
+                            <h3>{{ prestation.nom }}</h3>
+                            <div class="s-line"></div>
+                            <p>{{ prestation.description|raw }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div> <!-- End Row -->
+    </div> <!-- End Container -->
+</section>

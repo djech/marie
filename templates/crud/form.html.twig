@@ -1,0 +1,117 @@
+{% extends parent_twig %}
+
+{% for twig in themes_twig %}
+    {% form_theme form twig %}
+{% endfor %}
+
+{% block content_header %}
+    {{ title }}
+    <small>
+        {% block content_header_small %}{% endblock %}
+    </small>
+{% endblock %}
+
+{% block content %}
+    {% block buttons %}
+        <div class="btn-group">
+            <a class="btn btn-sm btn-info" href="javascript:history.back()">
+                <i class="fa fa-reply"></i>&nbsp;Retour</a>
+            {#<a class="btn btn-sm btn-info" href="#anchor">#}
+                {#<i class="fa fa-arrow-down"></i>&nbsp;Bas de page</a>#}
+        </div>
+    {% endblock %}
+
+    <p></p>
+
+    {% if tab_fields is not empty %}
+
+        {#
+            Override tab tabs
+        #}
+        {% set override_tab_tabs %}
+        {% block tab %}
+            {% for tab_number, tab_desc in tab_fields %}
+                <li class="{{(tab_number==0)?'active':''}}">
+                    <a href="#tab_{{tab_number}}" data-toggle="tab" aria-expanded="true">{{ tab_desc['title'] }}</a>
+                </li>
+            {% endfor %}
+        {% endblock %}
+        {% endset %}
+
+        {#
+            Override tab tabscontent
+        #}
+        {% set override_tab_tabscontent %}
+        {% for tab_number, tab_desc in tab_fields %}
+            <div class="tab-pane {{(tab_number==0)?'active':''}}" id="tab_{{tab_number}}">
+                <div class="row">
+                    {% set columnCount = tab_desc['columns'] | length %}
+                    {% for fields in tab_desc['columns'] %}
+
+                        <div class="col-sm-{{12/columnCount}}">
+                            {% for field in fields %}
+                                {% if attribute(form, field)is defined %}
+                                    {% block tab_row %}
+                                        {{ form_row(attribute(form, field)) }}
+                                    {% endblock %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        {% endset %}
+
+        {#
+            Form tab (onglets)
+        #}
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {% embed "crud/tab.html.twig" with {
+            override_tab_tabs : override_tab_tabs,
+            override_tab_tabscontent: override_tab_tabscontent
+        } %}
+            {% block tabs %}
+                {{ override_tab_tabs }}
+            {% endblock %}
+            {% block tabscontent %}
+                {{ override_tab_tabscontent }}
+            {% endblock %}
+        {% endembed %}
+        <button class="btn btn-sm btn-success" type="submit">
+            <i class="fa fa-save"></i>&nbsp;Enregistrer</button>
+        {{ form_end(form) }}
+
+    {% else %}
+
+        {#
+            Override box subcontent
+        #}
+        {% set override_box_boxcontent %}
+        {% block box_form %}
+            {{ form_widget(form) }}
+        {% endblock %}
+        {% endset %}
+
+        {#
+            Form box
+        #}
+        {{ form_start(form) }}
+        {% embed "crud/box.html.twig" with {
+            'box_class': 'box-primary',
+            override_box_boxcontent : override_box_boxcontent}
+        %}
+            {% block boxcontent %}
+                {{ override_box_boxcontent }}
+            {% endblock %}
+        {% endembed %}
+        <button class="btn btn-sm btn-success" type="submit">
+            <i class="fa fa-save"></i>&nbsp;Enregistrer</button>
+        {{ form_end(form) }}
+
+    {% endif %}
+
+    <div id="anchor"></div>
+{% endblock %}
